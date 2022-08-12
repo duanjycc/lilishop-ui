@@ -15,8 +15,8 @@
     <!-- 编辑 -->
     <Modal :title="modalTitle" v-model="roleModalVisible" :mask-closable="false" :width="500">
       <Form ref="roleForm" :model="roleForm" :label-width="80" :rules="roleFormValidate">
-        <FormItem label="角色名称" prop="name">
-          <Input v-model="roleForm.name" />
+        <FormItem label="角色名称" prop="roleName">
+          <Input v-model="roleForm.roleName" />
         </FormItem>
         <FormItem label="备注" prop="description">
           <Input v-model="roleForm.description" />
@@ -47,7 +47,7 @@
         </Button>
       </div>
     </Modal>
-   
+
 
     <!-- 保存权限弹出选择权限 -->
     <Modal width="800" v-model="selectIsSuperModel" title="选择菜单权限" :loading="superModelLoading" @on-ok="saveRole">
@@ -108,12 +108,12 @@ export default {
       modalTitle: "", // modal标题
       roleForm: {
         // 角色表单
-        name: "",
+        roleName: "",
         description: "",
       },
       roleFormValidate: {
         // 验证规则
-        name: [
+        roleName: [
           { required: true, message: "角色名称不能为空", trigger: "blur" },
         ],
       },
@@ -129,7 +129,7 @@ export default {
         },
         {
           title: "角色名称",
-          key: "name",
+          key: "roleName",
           minWidth: 150,
         },
         {
@@ -447,7 +447,7 @@ export default {
     remove(v) {
       this.$Modal.confirm({
         title: "确认删除",
-        content: "您确认要删除角色 " + v.name + " ?",
+        content: "您确认要删除角色 " + v.roleName + " ?",
         loading: true,
         onOk: () => {
           deleteRole(v.id).then((res) => {
@@ -522,7 +522,7 @@ export default {
         return;
       }
       this.editRolePermId = v.id;
-      this.modalTitle = "分配 " + v.name + " 的菜单权限";
+      this.modalTitle = "分配 " + v.roleName + " 的菜单权限";
       // 匹配勾选
       let rolePerms;
       // 当前角色的菜单权限
@@ -594,7 +594,7 @@ export default {
         };
         way.push(perm);
         this.$set(this,'saveRoleWay',way)
-     
+
       });
       console.log(this.saveRoleWay)
     },

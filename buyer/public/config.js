@@ -9,9 +9,9 @@ var BASE = {
       manager: "http://127.0.0.1:8887",
     },
     API_PROD: {
-      common: "http://8.136.107.94:8890",
-      buyer: "http://8.136.107.94:8888",
-      seller: "http://8.136.107.94:8889",
-      manager: "http://8.136.107.94:8887",
+      common: "https://wang.wantbibi.com/common-api",
+      buyer: "https://wang.wantbibi.com/buyer-api",
+      seller: "https://wang.wantbibi.com/seller-api",
+      manager: "https://wang.wantbibi.com/manager-api",
     },
   };
