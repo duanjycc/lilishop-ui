@@ -221,28 +221,28 @@ export default {
         companyAddress: [{ required: true, message: '请填写公司详细地址' }],
         employeeNum: [
           { required: true, message: '请填写公司员工总数' },
-          { pattern: RegExp.integer, message: '只能填写正整数' }
+          // { pattern: RegExp.integer, message: '只能填写正整数' }
         ],
         registeredCapital: [
           { required: true, message: '请填写公司注册资金' },
-          { pattern: RegExp.integer, message: '只能填写正整数' }
+          // { pattern: RegExp.integer, message: '只能填写正整数' }
         ],
         linkName: [{ required: true, message: '请填写联系人姓名' }],
         linkPhone: [
           { required: true, message: '请填写联系人电话' },
-          { pattern: RegExp.mobile, message: '请填写正确的号码' }
+          // { pattern: RegExp.mobile, message: '请填写正确的号码' }
         ],
         companyPhone: [
           { required: true, message: '请填写公司电话' },
-          { pattern: RegExp.TEL, message: '请填写正确的号码' }
+          // { pattern: RegExp.TEL, message: '请填写正确的号码' }
         ],
         companyEmail: [
           { required: true, message: '请填写电子邮箱' },
-          { type: 'email', message: '请输入正确的邮箱' }
+          // { type: 'email', message: '请输入正确的邮箱' }
         ],
         licenseNum: [
           { required: true, message: '请填写营业执照号' },
-          { pattern: RegExp.licenseNum, message: '请输入正确的营业执照号' }
+          // { pattern: RegExp.licenseNum, message: '请输入正确的营业执照号' }
         ],
         scope: [{ required: true, message: '请填写营业执照所示经营范围' }],
         legalPhoto: [{ required: true, message: '请上传法人身份证照片' }],
@@ -250,7 +250,7 @@ export default {
         legalName: [{ required: true, message: '请输入法人姓名' }],
         legalId: [
           { required: true, message: '请输入法人证件号' },
-          { pattern: RegExp.IDCard, message: '请输入正确的证件号' }
+          // { pattern: RegExp.IDCard, message: '请输入正确的证件号' }
         ]
       },
       uploadLoading1: false, // 上传loading
