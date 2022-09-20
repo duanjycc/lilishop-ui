@@ -5,6 +5,11 @@ export const getChildRegion = (id) => {
   return getRequest(`${commonUrl}/common/common/region/item/${id}`);
 };
 
+// 通过id获取子地区
+export const getRegionAll = () => {
+  return getRequest(`${commonUrl}/common/common/region/allCity`);
+};
+
 // 点地图获取地址信息
 export const getRegion = (params) => {
   return getRequest(`${commonUrl}/common/common/region/region`, params);

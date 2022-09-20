@@ -4,11 +4,12 @@
       :data="data"
       :load-data="loadData"
       v-model="addr"
-      placeholder="请选择地址"
+      placeholder="请选择"
       @on-change="change"
       style="width: 350px"
     ></Cascader>
   </div>
+
 </template>
 <script>
 import {getChildRegion} from '@/api/common.js';
@@ -16,16 +17,13 @@ export default {
   data () {
     return {
       data: [], // 地区数据
-      addr: [] // 已选数据
+      addr: [],// 已选数据
     };
   },
-  props: ['addressId'],
+  props: ['minLevel','addressId'],
   mounted () {},
   methods: {
     change (val, selectedData) { // 选择地区
-      /**
-       * @returns [regionId,region]
-       */
       this.$emit('selected', [
         val,
         selectedData[selectedData.length - 1].__label.split('/')
@@ -34,30 +32,26 @@ export default {
     loadData (item, callback) { // 加载数据
       item.loading = true;
       getChildRegion(item.value).then((res) => {
-        if (res.result.length <= 0) {
+        res.result.forEach((child) => {
           item.loading = false;
-        } else {
-          res.result.forEach((child) => {
-            item.loading = false;
 
-            let data = {
+          let data = {
+            value: child.id,
+            label: child.name,
+            loading: false,
+            children: []
+          };
+
+          if (child.level === this.minLevel || item.label === '香港特别行政区') {
+            item.children.push({
               value: child.id,
-              label: child.name,
-              loading: false,
-              children: []
-            };
-
-            if (child.level === 'street' || item.label === '香港特别行政区') {
-              item.children.push({
-                value: child.id,
-                label: child.name
-              });
-            } else {
-              item.children.push(data);
-            }
-          });
-          callback();
-        }
+              label: child.name
+            });
+          } else {
+            item.children.push(data);
+          }
+        });
+        callback();
       });
     },
     async init () { // 初始化地图数据
@@ -90,7 +84,7 @@ export default {
       let data = await getChildRegion(0);
       let arr0 = [];
       let arr1 = [];
-      let arr2 = [];
+      // let arr2 = [];
       // 第一级数据
       data.result.forEach((item) => {
         let obj;
@@ -119,6 +113,7 @@ export default {
             e.children = arr1 = children;
           }
         });
+
       }
       if (length > 1) {
         let children = await getChildRegion(addr[1]);
@@ -152,7 +147,7 @@ export default {
           children: []
         };
 
-        if (child.level === 'street' || item.label === '香港特别行政区') {
+        if (child.level === this.minLevel || item.label === '香港特别行政区') {
           item.push({
             value: child.id,
             label: child.name
@@ -174,6 +169,9 @@ export default {
         }
       },
       immediate: true
+    },
+    minLevel : function(v){
+      this.minLevel = v;
     }
   }
 };

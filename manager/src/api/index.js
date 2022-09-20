@@ -26,6 +26,7 @@ export const getAllCity = (params) => {
 }
 
 
+
 // 获取首页查询数据
 export const homeStatistics = (params) => {
   return getRequest("/statistics/index", params);
@@ -145,6 +146,20 @@ export const deleteUser = (ids, params) => {
 // 导入用户
 export const importUserData = (params) => {
   return importRequest("/passport/user/importData", params);
+};
+
+/*************************服务商管理 */
+// 获取服务商数据
+export const getServiceProvider = ( params) => {
+  return getRequest("/service/provider", params);
+};
+// 签约
+export const addSignIn = (params) => {
+  return postRequest("/service/provider", params);
+};
+// 删除
+export const delSignIn = (id) => {
+  return deleteRequest(`/service/provider/delete/${id}`);
 };
 /****************************** 部门 */
 // 通过部门获取全部角色数据
@@ -457,5 +472,3 @@ export const getHotWordsStatistics = (params) => {
 export const getHotWordsHistory = (params) => {
   return getRequest(`/hotwords/hotwords/history`,params);
 };
-
-
