@@ -148,6 +148,7 @@ export const otherRouter = {
       component: () => import("@/views/member/list/memberDetail.vue")
     },
 
+
     {
       path: "goods/goods-info/goodsDetail",
       title: "商品详情",
@@ -270,6 +271,12 @@ export const otherRouter = {
       title: "短信签名",
       name: "add-sms-sign",
       component: () => import("@/views/sys/message/smsSign.vue")
+    },
+    {
+      path: "service-provider-achievement",
+      title: "服务商业绩",
+      name: "service-provider-achievement",
+      component: () => import("@/views/sys/service-provider/serviceProviderAchievement.vue")
     },
     {
       path: "live-detail",

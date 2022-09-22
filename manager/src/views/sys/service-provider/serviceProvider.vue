@@ -130,7 +130,7 @@ export default {
       searchForm: { // 请求参数
         areaName: "",
         areaId: "",
-        isSignIn: "1",
+        isSignIn: "0",
         pageNumber: 1,
         pageSize: 20,
         sort: "",
@@ -294,6 +294,8 @@ export default {
                       props: {
                         type: "error",
                         size: "small"
+                      },style: {
+                        marginRight: "5px"
                       },
                       on: {
                         click: () => {
@@ -302,6 +304,22 @@ export default {
                       }
                     },
                     "删除"
+                  ),
+                  enableOrDisable,
+                  h(
+                    "Button",
+                    {
+                      props: {
+                        type: "info",
+                        size: "small"
+                      },
+                      on: {
+                        click: () => {
+                          this.detail(params.row);
+                        }
+                      }
+                    },
+                    "业绩查询"
                   )
                 ]);
               }
@@ -317,17 +335,6 @@ export default {
     init() {
       this.getServiceProvider();
     },
-    // 选择部门回调
-    // handleSelectDepTree(v) {
-    //   if (v) {
-    //     this.signForm.parentServiceProvider = v.departmentId;
-    //     this.signForm.departmentTitle = v.departmentTitle;
-    //   } else {
-    //     this.signForm.parentServiceProvider = 0;
-    //     this.signForm.departmentTitle = "";
-    //   }
-    // },
-    // 搜索项部门选择
     handleSelectDep(v) {
       this.signForm.parentServiceProvider = v;
     },
@@ -388,7 +395,6 @@ export default {
       this.$refs.signForm.validate(valid => {
         if (valid) {
           if (this.modalType == 0) {
-
             // 添加用户 避免编辑后传入id
             const params = JSON.parse(JSON.stringify(this.signForm))
                 console.log( params )
@@ -415,6 +421,10 @@ export default {
           }
         }
       });
+    },
+    //查看服务商业绩
+    detail(row) {
+      this.$router.push({ name: "service-provider-achievement", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
     },
 
     // 签约

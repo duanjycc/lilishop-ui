@@ -137,3 +137,13 @@ export const editMemberAddress = (params) => {
 export const getMemberWallet = (params) => {
   return getRequest(`/wallet/wallet`, params);
 };
+
+//查询服务商业绩
+export const getAchievement = (mobile) => {
+  return getRequest(`/service/provider/achievement/${mobile}`);
+};
+
+//查询服务商d店铺业绩
+export const getStoreAchievement = (params) => {
+  return getRequest(`/service/provider/store/achievement`, params);
+};
