@@ -2,7 +2,7 @@
   <div>
     <Cascader
       v-model="selectDep"
-      :data="department"
+      :data="regionList"
       @on-change="handleChangeDep"
       change-on-select
       filterable
@@ -13,36 +13,32 @@
 </template>
 
 <script>
-import { getRegionAll } from "@/api/common.js";
+// import { getRegionAll } from "@/api/common";
 export default {
-  name: "departmentChoose",
-  props: [
-    'selectDep',
-  ],
+  name: "regionTreeChoose",
+  props: {
+     regionList: Array,
+     selectDep: Array
+  },
+
   data() {
     return {
-      department: [] // 列表
+
     };
   },
   methods: {
-
     // 获取部门数据
-    initDepartmentData() {
-      getRegionAll().then(res => {
-        if (res.success) {
-          const arr = res.result;
-          this.filterData(arr)
-          this.department = arr
-        }
-      });
+    initRegionData() {
+      this.filterData(this.regionList)
     },
     handleChangeDep(value, selectedData) {
       let departmentId = "";
+      let regionId = "";
       // 获取最后一个值
       if (value && value.length > 0) {
-        departmentId = value[value.length - 1];
+        regionId = value[value.length - 1];
       }
-      this.$emit("on-change", departmentId);
+      this.$emit("on-change", regionId);
     },
     // 清空已选列表
     clearSelect() {
@@ -61,8 +57,10 @@ export default {
       })
     }
   },
-  created() {
-    this.initDepartmentData();
+  watch: {
+     regionList(val) {
+       this.initRegionData();
+     }
   }
 };
 </script>

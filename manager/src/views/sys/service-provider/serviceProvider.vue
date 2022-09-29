@@ -2,7 +2,6 @@
   <div class="search">
     <Card>
       <Form ref="searchForm" :model="searchForm" inline :label-width="70" class="search-form">
-
         <Form-item label="地区">
           <region-choose @on-change="handleSelectDep" style="width: 300px;" ref="dep"></region-choose>
         </Form-item>
@@ -397,7 +396,6 @@ export default {
           if (this.modalType == 0) {
             // 添加用户 避免编辑后传入id
             const params = JSON.parse(JSON.stringify(this.signForm))
-                console.log( params )
             //this.submitLoading = true;
             addSignIn(params).then(res => {
               this.submitLoading = false;
@@ -427,6 +425,10 @@ export default {
       this.$router.push({ name: "service-provider-achievement", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
     },
 
+    //查看服务商业绩
+    edit(row) {
+      this.$router.push({ name: "service-provider-update", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
+    },
     // 签约
     signIn(v) {
       this.modalTitle = "签约服务商";
