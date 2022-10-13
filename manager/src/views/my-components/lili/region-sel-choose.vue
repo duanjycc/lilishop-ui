@@ -13,16 +13,16 @@
 </template>
 
 <script>
+// import { getRegionAll } from "@/api/common";
 export default {
   name: "regionTreeChoose",
   props: {
-     regionList: Array,
-     selectDep: Array,
+     regionList: Array
   },
 
   data() {
     return {
-
+      selectDep:null
     };
   },
   methods: {
@@ -31,6 +31,7 @@ export default {
       this.filterData(this.regionList)
     },
     handleChangeDep(value, selectedData) {
+      let departmentId = "";
       let regionId = "";
       // 获取最后一个值
       if (value && value.length > 0) {
@@ -56,10 +57,9 @@ export default {
     }
   },
   watch: {
-    regionList(val) {
-      console.log("222222222222222")
-      this.initRegionData();
-    }
+     regionList(val) {
+       this.initRegionData();
+     }
   }
 };
 </script>

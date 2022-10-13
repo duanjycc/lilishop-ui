@@ -157,6 +157,18 @@ export const getServiceProvider = ( params) => {
 export const addSignIn = (params) => {
   return postRequest("/service/provider", params);
 };
+export const editSignIn = (params) => {
+  return putRequest("/service/provider", params);
+};
+// 获取服务商签约信息
+export const getSignDetail= (areaId) => {
+  return getRequest(`/service/provider/region/${areaId}`);
+};
+// 检测区域是否被签约
+export const checkAreaHavSign= (areaId) => {
+  return getRequest(`/service/provider/check/${areaId}`);
+};
+
 // 删除
 export const delSignIn = (id) => {
   return deleteRequest(`/service/provider/delete/${id}`);

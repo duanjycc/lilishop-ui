@@ -5,18 +5,20 @@
         <div class="base-info-item">
           <h4>服务商基础信息信息</h4>
           <div class="form-item-view">
+            <FormItem label="会员手机号">
+              <Input type="text" v-model="form.mobile" disabled placeholder="会员手机号"  style="width: 300px" />
+            </FormItem>
+            <FormItem label="会员名称">
+              <Input type="text" v-model="form.nickName" disabled placeholder="会员名称"  style="width: 300px" />
+            </FormItem>
+            
             <Form-item label="区域名称">
               <regionTreeChooseVue @on-change="handleSelectDep" :regionList="regionList" :selectDep="form.selected" style="width: 300px;" ref="dep"></regionTreeChooseVue>
             </Form-item>
             <FormItem label="上级服务商">
              <regionTreeChooseVue @on-change="handleSelectDep" :regionList="regionList" :selectDep="form.parentSelected" style="width: 300px;" ref="dep"></regionTreeChooseVue>
             </FormItem>
-            <FormItem label="会员手机号">
-              <Input type="text" v-model="form.mobile" placeholder="会员手机号" clearable style="width: 300px" />
-            </FormItem>
-            <FormItem label="会员名称">
-              <Input type="text" v-model="form.nickName" placeholder="会员名称" clearable style="width: 300px" />
-            </FormItem>
+        
             <FormItem label="设置等级">
               <Select v-model="form.level" style="width: 300px">
                 <Option v-for="item in roleList" :value="item.id" :key="item.id" :label="item.roleName">
@@ -31,7 +33,7 @@
           <h4>下级服务商</h4>
           <div class="children-list" v-for="(item, index) in parentList">
             <FormItem label="会员名称">
-              <Input type="text" v-model="item.mobile" placeholder="会员名称" clearable style="width: 260px" />
+              <Input type="text" v-model="item.mobile" disabled placeholder="会员名称" style="width: 260px" />
             </FormItem>
             <Form-item label="区域名称">
               <regionTreeChooseVue @on-change="handleSelectDep" :regionList="regionList" :selectDep="item.selected" style="width: 300px;" ref="dep"></regionTreeChooseVue>
@@ -68,10 +70,10 @@
         regionList: [],// 地区列表
         parentList:[
           {mobile:"173435666660",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
-          {mobile:"173435666661",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
-          {mobile:"173435666662",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
-          {mobile:"173435666663",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
-          {mobile:"173435666664",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
+          // {mobile:"173435666661",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
+          // {mobile:"173435666662",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
+          // {mobile:"173435666663",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
+          // {mobile:"173435666664",selected: ['1401797451697881277', '1401797451702076092', '1401797451706269736']},
         ],
         mobile: "", //会员id
         signAreaId: null,

@@ -3,7 +3,7 @@
     <Card>
       <Form ref="searchForm" :model="searchForm" inline :label-width="70" class="search-form">
         <Form-item label="地区">
-          <region-choose @on-change="handleSelectDep" style="width: 300px;" ref="dep"></region-choose>
+          <regionSelChooseVue @on-change="handleSelectSearchDep" :regionList="regionList"  style="width: 300px;" ref="dep"></regionSelChooseVue>
         </Form-item>
        <Form-item label="是否签约">
          <Select v-model="searchForm.isSignIn" placeholder="请选择" clearable style="width: 200px">
@@ -31,8 +31,6 @@
         :columns="columns"
         :data="data"
         sortable="custom"
-        @on-sort-change="changeSort"
-        @on-selection-change="showSelect"
         ref="table"
       ></Table>
       <Row type="flex" justify="end" class="mt_10">
@@ -61,11 +59,12 @@
     >
       <Form ref="signForm" :model="signForm" :label-width="90" :rules="formValidate">
         <FormItem label="签约区域" style="width: 40px" prop="signAreaName">
-           <Input disabled style="width: 350px" v-model="signForm.signAreaName"/>
+           <Input v-if="orSigin === true" disabled style="width: 350px" v-model="signForm.signAreaName"/>
+           <regionTreeChooseVue  v-if="orSigin === false" @on-change="handleSelectSearchDep" :regionList="regionList" :selectDep="signForm.signAreaIds"  style="width: 350px;" ref="dep"></regionTreeChooseVue>
         </FormItem>
 
         <FormItem label="上级服务商"  prop="parentServiceProvider">
-          <department-choose @on-change="handleSelectDep" style="width: 350px;" ref="dep"></department-choose>
+          <regionTreeChooseVue @on-change="handleSelectDep" :regionList="regionList" :selectDep="signForm.parentAreaIds" style="width: 350px;" ref="dep"></regionTreeChooseVue>
         </FormItem>
 
         <FormItem label="会员号" prop="mobile">
@@ -89,8 +88,6 @@
         <Button type="primary" :loading="submitLoading" @click="submitUser">提交</Button>
       </div>
     </Modal>
-
-
   </div>
 </template>
 
@@ -100,32 +97,24 @@ import {
   getUserListData,
   getAllRoleList,
   addSignIn,
-  editOtherUser,
-  enableUser,
-  deleteUser,
-  delSignIn,
-  resetPassword
+  editSignIn,
+  getSignDetail,
+  checkAreaHavSign,
 } from "@/api/index";
-import {validateMobile} from "@/libs/validate";
-import departmentChoose from "@/views/my-components/lili/department-choose";
-import uploadPicInput from "@/views/my-components/lili/upload-pic-input";
-import regionChoose from "@/views/lili-components/region-choose";
-import region from "@/views/lili-components/region";
+import { getRegionAll } from "@/api/common";
+import regionTreeChooseVue from "@/views/my-components/lili/region-tree-choose.vue";
+import regionSelChooseVue from "@/views/my-components/lili/region-sel-choose.vue";
 
 export default {
-  name: "user-manage",
-  components: {
-    region,
-    regionChoose,
-    departmentChoose,
-    uploadPicInput,
-  },
+  name: "service-provider",
+  components: {   regionTreeChooseVue,regionSelChooseVue },
   data() {
     return {
       loading: true, // 加载状态
-      selectCount: 0, // 已选数量
       selectList: [], // 已选数据列表
-      minLevel:"district",
+      regionList: [],// 地区列表
+      roleList: [], // 角色列表
+      orSigin: false,
       searchForm: { // 请求参数
         areaName: "",
         areaId: "",
@@ -141,16 +130,17 @@ export default {
       signForm: { // 请求参数
         signAreaId:"",
         signAreaName:"",
+        signAreaIds:[],
         parentServiceProvider:"",
+        parentAreaIds:[],
         username: "",
         mobile: "",
         serviceProviderLevel:""
       },
-      roleList: [], // 角色列表
       errorPass: "", // 错误提示
       formValidate: { // 验证规则
         signAreaId: [
-          {required: true, message: "签约区域不能为空", trigger: "blur"}
+          {required: true, message: "签约区域不能为空", trigger: "blur",}
         ],
         parentServiceProvider: [
           {required: true, message: "上级服务商不能为空", trigger: "blur"}
@@ -167,7 +157,6 @@ export default {
       },
       submitLoading: false, // 提交状态
       columns: [ // 表头
-
         {
           title: "区域名称",
           key: "areaName",
@@ -175,7 +164,7 @@ export default {
           fixed: "left"
         },
         {
-          title: "上级区域",
+          title: "上级区域名称",
           key: "parentName",
           minWidth: 120,
           align: "center"
@@ -259,7 +248,7 @@ export default {
                       },
                       on: {
                         click: () => {
-                          this.signIn(params.row);
+                          this.signIn(params.row,true);
                         }
                       }
                     },
@@ -280,7 +269,7 @@ export default {
                       },
                       on: {
                         click: () => {
-                          this.edit(params.row);
+                          this.signIn(params.row,false);
                         }
                       }
                     },
@@ -333,11 +322,40 @@ export default {
     // 初始化数据
     init() {
       this.getServiceProvider();
+      this.initRegionData();
     },
     handleSelectDep(v) {
-      this.signForm.parentServiceProvider = v;
+      // if(!this.orSigin){
+      //   checkAreaHavSign(v).then((res) =>{
+      //      if (res.success) {
+      //        let status = res.result;
+      //        if(status){
+      //         this.$Message.error("所选上级服务商未签约，请选择其他上级服务商");
+      //        }else{
+      //        this.parentServiceProvider = v;
+      //        }
+      //      }
+      //   })
+      // }else{
+        this.parentServiceProvider = v;
+      //}
     },
-
+    handleSelectSearchDep(v){
+      // if(!this.orSigin){
+      //   checkAreaHavSign(v).then((res) =>{
+      //      if (res.success) {
+      //        let status = res.result;
+      //        if(status){
+      //          this.searchForm.areaId = v;
+      //        }else{
+      //          this.$Message.error("所选区域已被签约，请选择其他区域");
+      //        }
+      //      }
+      //   })
+      // }else{
+        this.searchForm.areaId = v;
+     // }
+    },
     // 分页 修改页码
     changePage(v) {
       this.searchForm.pageNumber = v;
@@ -353,7 +371,6 @@ export default {
     getServiceProvider() {
       // 多条件搜索用户列表
       this.loading = true;
-      // console.log( this.searchForm )
       getServiceProvider(this.searchForm).then(res => {
         this.loading = false;
         if (res.success) {
@@ -368,15 +385,6 @@ export default {
       this.searchForm.pageSize = 10;
       this.getServiceProvider();
     },
-    // 排序
-    changeSort(e) {
-      this.searchForm.sort = e.key;
-      this.searchForm.order = e.order;
-      if (e.order == "normal") {
-        this.searchForm.order = "";
-      }
-      this.getServiceProvider();
-    },
     // 获取角色列表
     getRoleList() {
       let params = {
@@ -385,18 +393,24 @@ export default {
       getAllRoleList(params).then(res => {
         if (res.success) {
           this.roleList = res.result.records;
+          this.$delete(this.roleList,5)
         }
       });
     },
-
+    initRegionData() {
+      getRegionAll().then(res => {
+        if (res.success) {
+          const arr = res.result;
+          this.regionList = arr
+        }
+      });
+    },
     // 确认提交
     submitUser() {
       this.$refs.signForm.validate(valid => {
         if (valid) {
           if (this.modalType == 0) {
-            // 添加用户 避免编辑后传入id
             const params = JSON.parse(JSON.stringify(this.signForm))
-            //this.submitLoading = true;
             addSignIn(params).then(res => {
               this.submitLoading = false;
               if (res.success) {
@@ -406,9 +420,9 @@ export default {
               }
             });
           } else {
-            // 编辑
-            this.submitLoading = true;
-            editOtherUser(this.form).then(res => {
+            const params = JSON.parse(JSON.stringify(this.signForm));
+
+            editSignIn(params).then(res => {
               this.submitLoading = false;
               if (res.success) {
                 this.$Message.success("操作成功");
@@ -429,28 +443,57 @@ export default {
     edit(row) {
       this.$router.push({ name: "service-provider-update", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
     },
-    // 签约
-    signIn(v) {
-      this.modalTitle = "签约服务商";
-      this.$refs.signForm.resetFields();
-      // 签约参数
-      this.signForm = {
-        parentServiceProvider:"",
-        username: "",
-        mobile: "",
-        serviceProviderLevel:""
-      };
+    checkArea(){
 
-      this.modalType == 0;
-      this.signForm.signAreaId = v.areaId;
-      this.signForm.signAreaName = v.parentName +"/"+ v.areaName;
-      this.userModalVisible = true;
+    },
+    checkParentArea(){
+
+    },
+    // 签约
+    signIn(v,t) {
+      this.orSigin = t;
+      this.$refs.signForm.resetFields();
+      if(t){
+        this.modalTitle = "签约服务商";
+        this.signForm = {
+          parentServiceProvider:"",
+          username: "",
+          mobile: "",
+          serviceProviderLevel:""
+        };
+        this.modalType = 0;
+        this.signForm.signAreaId = v.areaId;
+        this.signForm.signAreaName = v.parentName +"/"+ v.areaName;
+        this.userModalVisible = true;
+      }else{
+        this.getSignDetail(v.areaId);
+        this.modalTitle = "编辑服务商";
+        this.modalType = 1;
+
+        this.signForm.username = v.areaServiceProviderName;
+        this.signForm.mobile = v.areaServiceProviderMobile;
+        this.userModalVisible = true;
+      }
+    },
+
+    getSignDetail(areaId){
+      getSignDetail(areaId).then((res) => {
+         this.loading = false;
+         if (res.success) {
+            let signData = res.result;
+            this.signForm.signAreaIds = signData.signAreaIds;
+            this.signForm.parentAreaIds = signData.parentAreaIds;
+            this.signForm.serviceProviderLevel = signData.serviceLevel;
+            this.signForm.signAreaId = areaId;
+            this.signForm.parentServiceProvider = signData.parentAreaId;
+         }
+      });
     },
     // 删除用户
     remove(v) {
       this.$Modal.confirm({
         title: "确认删除",
-        content: "您确认要删除改签约区域 " + v.areaName + " ?",
+        content: "您确认要删除该签约区域 " + v.areaName + " ?",
         loading: true,
         onOk: () => {
           delSignIn(v.areaId).then(res => {
@@ -463,17 +506,6 @@ export default {
         }
       });
     },
-    // 选中状态
-    showSelect(e) {
-      this.exportData = e;
-      this.selectList = e;
-      this.selectCount = e.length;
-    },
-    // 清除选中状态
-    clearSelectAll() {
-      this.$refs.table.selectAll(false);
-    },
-
   },
   mounted() {
     this.init();
