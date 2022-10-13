@@ -157,15 +157,17 @@ export default {
           title: "会员名称",
           key: "username",
           tooltip: true,
+          width: 200,
         },
         {
           title: "会员昵称",
           key: "nickName",
           tooltip: true,
+          width: 220,
         },
         {
           title: "联系方式",
-          width: 130,
+          width: 200,
           key: "mobile",
           render: (h, params) => {
             if (params.row.mobile == null) {
@@ -175,16 +177,17 @@ export default {
             }
           },
         },
-        {
-          title: "注册时间",
-          key: "createTime",
-          width: 180,
-        },
 
+        {
+          title: "ssd数量",
+          key: "ssd",
+          align: "left",
+          width: 240,
+        },
         {
           title: "积分数量",
           align: "left",
-          width: 100,
+          width: 230,
           render: (h, params) => {
             return h(
               "div",
@@ -192,6 +195,10 @@ export default {
               params.row.point == void 0 ? "0" : params.row.point
             );
           },
+        }, {
+          title: "注册时间",
+          key: "createTime",
+          width: 200,
         },
         {
           title: "操作",
