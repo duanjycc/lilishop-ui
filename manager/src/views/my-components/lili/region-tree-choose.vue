@@ -1,7 +1,7 @@
 <template>
   <div>
     <Cascader
-      v-model="selectDep"
+      v-model="reselectDep"
       :data="regionList"
       @on-change="handleChangeDep"
       change-on-select
@@ -15,34 +15,28 @@
 <script>
 export default {
   name: "regionTreeChoose",
-  props: {
-     regionList: Array,
-     selectDep: Array,
-  },
-
+  props: ["regionList","selectDep"],
   data() {
     return {
-
+      reselectDep:this.selectDep
     };
   },
   methods: {
-    // 获取部门数据
     initRegionData() {
+
       this.filterData(this.regionList)
     },
     handleChangeDep(value, selectedData) {
       let regionId = "";
-      // 获取最后一个值
       if (value && value.length > 0) {
         regionId = value[value.length - 1];
       }
       this.$emit("on-change", regionId);
+
     },
-    // 清空已选列表
     clearSelect() {
-      this.selectDep = [];
+      this.reselectDep = [];
     },
-    // 处理部门数据
     filterData (data) {
       data.forEach(e => {
         e.value = e.id;
@@ -57,8 +51,10 @@ export default {
   },
   watch: {
     regionList(val) {
-      console.log("222222222222222")
       this.initRegionData();
+    },
+    selectDep(v){
+      this.reselectDep = v;
     }
   }
 };

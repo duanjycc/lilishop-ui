@@ -142,6 +142,10 @@ export const getMemberWallet = (params) => {
 export const getAchievement = (mobile) => {
   return getRequest(`/service/provider/achievement/${mobile}`);
 };
+//查询服务商业绩left
+export const getAchievementLeft = (params) => {
+  return getRequest('/service/provider/achievement/left',params);
+};
 
 //查询服务商d店铺业绩
 export const getStoreAchievement = (params) => {

@@ -278,12 +278,12 @@ export const otherRouter = {
       name: "service-provider-achievement",
       component: () => import("@/views/sys/service-provider/serviceProviderAchievement.vue")
     },
-    {
-      path: "service-provider-update",
-      title: "服务修改",
-      name: "service-provider-update",
-      component: () => import("@/views/sys/service-provider/serviceProviderUpdate.vue")
-    },
+    // {
+    //   path: "service-provider-update",
+    //   title: "服务修改",
+    //   name: "service-provider-update",
+    //   component: () => import("@/views/sys/service-provider/serviceProviderUpdate.vue")
+    // },
     {
       path: "live-detail",
       title: "查看直播",

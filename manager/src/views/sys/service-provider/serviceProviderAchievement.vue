@@ -25,7 +25,7 @@
         <div class="ant-col-md-6">
           <p class="item">
             <span class="label">签约地区：</span>
-             <span class="info">{{achievement.signAreaName}}</span>
+            <span class="info">{{achievement.signAreaName}}</span>
           </p>
           <p class="item">
             <span class="label">上级服务商：</span>
@@ -49,8 +49,32 @@
           </p>
 
         </div>
+
+        <div class="ant-col-md-67">
+          <Form class="search-form" style="width: 100%;background-color: white;">
+            <Form-item>
+              <DatePicker v-model="queryDate"  type="datetimerange" format="yyyy-MM-dd" clearable @on-change="queryDateRange" placeholder="选择起始时间" style="width: 400px"></DatePicker>
+            </Form-item>
+
+            <Button @click="quyerSearch" type="primary" icon="ios-search" class="search-btn">查询</Button>
+          </Form>
+
+          <div class="point-data">
+            <p class="p-item">
+              <span class="p-label">让利额：</span>
+              <span class="p-info">{{queryAchievement.surrenderPrice || 0 }}</span>
+              <span class="p-label">销毁数量：</span>
+              <span class="p-info"> {{queryAchievement.destroySSD || 0 }}</span>
+              <span class="p-label">邀请商家数量：</span>
+              <span class="p-info">{{queryAchievement.storeCount || 0 }}</span>
+            </p>
+          </div>
+        </div>
       </div>
     </Card>
+
+
+
 
     <Card class="mt_10">
       <Tabs value="point">
@@ -64,7 +88,7 @@
               <Button @click="handleSearch" type="primary" icon="ios-search" class="search-btn">搜索</Button>
             </Form>
           </div>
-          <div class="point-data" style="margin-top: -5px;height: 288px">
+          <div class="point-data" style="margin-top: -5px;height: 50%">
              <Table
                 :loading="loading"
                 border
@@ -109,7 +133,9 @@
         memberInfo: {},//会员信息
         signAreaId:null,
         achievement:{},// 业绩信息
+        queryAchievement:{},
         selectDate: null, // 选择时间段
+        queryDate:[],
         //历史积分表格
         pointsColumns: [
           {
@@ -143,10 +169,15 @@
         //历史积分数据查询form
         pointSearchForm: {
           pageNumber: 1, // 当前页数
-          pageSize: 20, // 页面大小
+          pageSize: 10, // 页面大小
           startDate: null,
           endDate:null,
         },
+        queryForm:{
+          mobile:"",
+          startDate: this.getNowTime(1),
+          endDate:this.getNowTime(0),
+        }
       };
     },
     methods: {
@@ -155,14 +186,20 @@
         this.getPointData();
         //查询服务商业绩
         this.getAchievement();
-      },
+         //查询服务商业绩left
+        this.quyerSearch();
+        this.queryDate.push(this.getNowTime(1))
+        this.queryDate.push(this.getNowTime(0))
 
-      // 起止时间从新赋值
-      selectDateRange(v) {
-        if (v) {
-          this.pointSearchForm.startDate = v[0];
-          this.pointSearchForm.endDate = v[1];
-        }
+      },
+      quyerSearch(){
+        this.queryForm.mobile = this.mobile;
+        API_Member.getAchievementLeft(this.queryForm).then((res) => {
+          this.$set(this, "queryAchievement", res.result);
+        });
+      },
+      handleQuyerSearch(){
+        this.quyerSearch();
       },
       // 搜索
       handleSearch() {
@@ -179,8 +216,6 @@
       getPointData() {
         this.loading = true;
         this.pointSearchForm.areaId =  this.signAreaId;
-        console.log( "------")
-        console.log( this.signAreaId)
         API_Member.getStoreAchievement(this.pointSearchForm).then((res) => {
           this.loading = false;
           if (res.success) {
@@ -201,6 +236,26 @@
         this.pointSearchForm.pageNumber = 1;
         this.pointSearchForm.pageSize = v;
         this.getPointData();
+      },
+      queryDateRange(v){
+        console.log( v)
+        if (v) {
+          this.queryForm.startDate = v[0];
+          this.queryForm.endDate = v[1];
+        }
+      },
+      selectDateRange(v) {
+        if (v) {
+          this.pointSearchForm.startDate = v[0];
+          this.pointSearchForm.endDate = v[1];
+        }
+      },
+      getNowTime(co){
+        const yy = new Date().getFullYear()
+        const MM = ((new Date().getMonth()-co) + 1) < 10 ? '0' + ((new Date().getMonth()-co) + 1) : ((new Date().getMonth()-co) + 1)
+        const dd = new Date().getDate() < 10 ? '0' + new Date().getDate() : new Date().getDate()
+        let time = yy + '-' + MM + '-' + dd;
+        return time;
       },
     },
 

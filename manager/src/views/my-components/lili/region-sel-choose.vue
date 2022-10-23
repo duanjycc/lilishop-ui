@@ -22,7 +22,7 @@ export default {
 
   data() {
     return {
-      selectDep:null
+  
     };
   },
   methods: {
@@ -31,7 +31,6 @@ export default {
       this.filterData(this.regionList)
     },
     handleChangeDep(value, selectedData) {
-      let departmentId = "";
       let regionId = "";
       // 获取最后一个值
       if (value && value.length > 0) {

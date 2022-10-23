@@ -34,6 +34,12 @@
   width: 25%;
   float: left;
 }
+.ant-col-md-67 {
+  display: block;
+  box-sizing: border-box;
+  width: 50%;
+  float: left;
+}
 .info-2{
   float: left;
 }
@@ -76,6 +82,28 @@
   align-items: flex-start;
   line-height: 20px;
   margin-bottom: 2px;
+}
+.p-item {
+  display: flex;
+  align-items: flex-start;
+  line-height: 20px;
+  margin-bottom: 2px;
+  padding-left: 20px;
+}
+
+.p-label {
+  text-align: right;
+  color: rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.p-info {
+  font-weight: 500;
+  padding-left: 0;
+  margin-bottom: 0;
+  width: 10%;
 }
 
 .label {

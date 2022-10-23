@@ -5,12 +5,11 @@
         <Form-item label="地区">
           <regionSelChooseVue @on-change="handleSelectSearchDep" :regionList="regionList"  style="width: 300px;" ref="dep"></regionSelChooseVue>
         </Form-item>
-       <Form-item label="是否签约">
-         <Select v-model="searchForm.isSignIn" placeholder="请选择" clearable style="width: 200px">
-           <Option value="0">签约</Option>
-           <Option value="1">未签约</Option>
-         </Select>
-       </Form-item>
+        <Form-item label="是否签约">
+          <Select v-model="searchForm.isSignIn" placeholder="请选择" clearable style="width: 200px">
+            <Option value="0">签约</Option>
+            <Option value="1">未签约</Option>
+          </Select>
         </Form-item>
         <Form-item label="区域名称">
           <Input
@@ -60,7 +59,7 @@
       <Form ref="signForm" :model="signForm" :label-width="90" :rules="formValidate">
         <FormItem label="签约区域" style="width: 40px" prop="signAreaName">
            <Input v-if="orSigin === true" disabled style="width: 350px" v-model="signForm.signAreaName"/>
-           <regionTreeChooseVue  v-if="orSigin === false" @on-change="handleSelectSearchDep" :regionList="regionList" :selectDep="signForm.signAreaIds"  style="width: 350px;" ref="dep"></regionTreeChooseVue>
+           <regionTreeChooseVue  v-if="orSigin === false" @on-change="handleSelectSiginDep" :regionList="regionList" :selectDep="signForm.signAreaIds"  style="width: 350px;" ref="dep"></regionTreeChooseVue>
         </FormItem>
 
         <FormItem label="上级服务商"  prop="parentServiceProvider">
@@ -100,6 +99,7 @@ import {
   editSignIn,
   getSignDetail,
   checkAreaHavSign,
+  delSignIn,
 } from "@/api/index";
 import { getRegionAll } from "@/api/common";
 import regionTreeChooseVue from "@/views/my-components/lili/region-tree-choose.vue";
@@ -324,37 +324,40 @@ export default {
       this.getServiceProvider();
       this.initRegionData();
     },
+    handleSelectSearchDep(v){
+      this.searchForm.areaId = v;
+    },
     handleSelectDep(v) {
       // if(!this.orSigin){
-      //   checkAreaHavSign(v).then((res) =>{
-      //      if (res.success) {
-      //        let status = res.result;
-      //        if(status){
-      //         this.$Message.error("所选上级服务商未签约，请选择其他上级服务商");
-      //        }else{
-      //        this.parentServiceProvider = v;
-      //        }
-      //      }
-      //   })
+        checkAreaHavSign(v).then((res) =>{
+           if (res.success) {
+             let status = res.result;
+             if(status){
+              this.$Message.error("所选上级服务商未签约，请选择其他上级服务商","2000");
+             }else{
+              this.signForm.parentServiceProvider = v;
+             }
+           }
+        })
       // }else{
-        this.parentServiceProvider = v;
-      //}
+      //   this.signForm.parentServiceProvider = v;
+      // }
     },
-    handleSelectSearchDep(v){
-      // if(!this.orSigin){
-      //   checkAreaHavSign(v).then((res) =>{
-      //      if (res.success) {
-      //        let status = res.result;
-      //        if(status){
-      //          this.searchForm.areaId = v;
-      //        }else{
-      //          this.$Message.error("所选区域已被签约，请选择其他区域");
-      //        }
-      //      }
-      //   })
-      // }else{
-        this.searchForm.areaId = v;
-     // }
+    handleSelectSiginDep(v){
+      if(!this.orSigin){
+         checkAreaHavSign(v).then((res) =>{
+            if (res.success) {
+              let status = res.result;
+              if(status){
+                this.signForm.signAreaId = v;
+              }else{
+                this.$Message.error("所选区域已被签约，请选择其他区域","2000");
+              }
+            }
+         })
+       }else{
+        this.signForm.signAreaId = v;
+      }
     },
     // 分页 修改页码
     changePage(v) {
@@ -382,7 +385,7 @@ export default {
     // 搜索
     handleSearch() {
       this.searchForm.pageNumber = 1;
-      this.searchForm.pageSize = 10;
+      this.searchForm.pageSize = 20;
       this.getServiceProvider();
     },
     // 获取角色列表
@@ -440,9 +443,9 @@ export default {
     },
 
     //查看服务商业绩
-    edit(row) {
-      this.$router.push({ name: "service-provider-update", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
-    },
+    // edit(row) {
+    //   this.$router.push({ name: "service-provider-update", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
+    // },
     checkArea(){
 
     },
@@ -482,7 +485,9 @@ export default {
          if (res.success) {
             let signData = res.result;
             this.signForm.signAreaIds = signData.signAreaIds;
+            this.$delete(this.signForm.signAreaIds ,0)
             this.signForm.parentAreaIds = signData.parentAreaIds;
+            this.$delete(this.signForm.parentAreaIds ,0)
             this.signForm.serviceProviderLevel = signData.serviceLevel;
             this.signForm.signAreaId = areaId;
             this.signForm.parentServiceProvider = signData.parentAreaId;
