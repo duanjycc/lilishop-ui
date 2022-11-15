@@ -3,8 +3,8 @@
     <Dropdown trigger="click">
 
       <a href="javascript:void(0)">
-        {{ value > 0 ? "有" + value + "条待办事项" : "无待办事项" }}
-        <Icon v-if="value!=0" type="ios-arrow-down"></Icon>
+       <!-- {{ value > 0 ? "有" + value + "条待办事项" : "无待办事项" }}-->
+        <!--<Icon v-if="value!=0" type="ios-arrow-down"></Icon>-->
       </a>
       <DropdownMenu v-if="value!=0" slot="list">
         <DropdownItem v-if="res.balanceCash" @click.native="navigateTo('deposit')">

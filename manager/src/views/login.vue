@@ -3,6 +3,7 @@
     <Row @keydown.enter.native="submitLogin" class="flex">
       <Col style="width: 368px">
       <Header />
+        <img src="../assets/logo.png" style="width:370px;height: 150px"></img>
       <Row style="flex-direction: column;">
 
         <Form ref="usernameLoginForm" :model="form" :rules="rules" class="form">
@@ -99,7 +100,7 @@ export default {
       });
     },
     submitLogin() {
-      
+
       let fd = new FormData();
       fd.append('username',this.form.username)
       fd.append('password',this.md5(this.form.password))
@@ -148,8 +149,7 @@ export default {
 <style lang="scss" scoped>
 .login {
   height: 100%;
-  background: url("../assets/background.png") no-repeat;
-  background-color: #f0f2f5;
+  background-color: cornflowerblue;
   display: flex;
   background-size: cover;
   align-items: center;

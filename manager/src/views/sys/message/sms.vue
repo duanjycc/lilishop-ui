@@ -168,6 +168,7 @@ export default {
       members: [], //所有会员
       smsTemplateContent: "", //短信模板内容
       memberNum: 0, //会员总数
+      ssdAllNum: 0, //ssd总数
       smsContent: "<div class='sms'>效果预览</div>", //短信内容
       smsTemplates: [], //短信模板
       smsSigns: [], //短信签名

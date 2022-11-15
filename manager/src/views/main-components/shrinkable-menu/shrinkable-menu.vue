@@ -3,7 +3,7 @@
     <!-- 一级菜单 -->
     <Menu ref="sideMenu" width="80px" theme="dark"  :active-name="currNav" @on-select="selectNav">
       <MenuItem v-for="(item, i) in navList" :key="i" :name="item.name">
-        {{item.title}}
+        <div>{{item.title}}</div>
       </MenuItem>
     </Menu>
     <!-- 二级菜单 -->
@@ -49,7 +49,7 @@ export default {
           this.selectNav(val.meta.firstRouterName)
         }
       }
-    } 
+    }
   },
   methods: {
     changeMenu(name) { //二级路由点击
@@ -91,8 +91,11 @@ export default {
     color: $theme_color;
 }
 /deep/.ivu-menu-vertical .ivu-menu-item-group-title {
-    height: 40px;
-    line-height: 40px;
-    padding-left: 20px;
+  height: 40px;
+  color: #0f1011;
+  font-size: large;
+  line-height: 40px;
+  padding-left: 10px;
+  font-weight: bolder;
 }
 </style>

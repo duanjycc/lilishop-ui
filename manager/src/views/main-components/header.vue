@@ -1,7 +1,7 @@
 <template>
   <div>
     <Row class="header">
-      <img :src="domainLogo" class="logo" width="220px" />
+
     </Row>
   </div>
 </template>
@@ -11,7 +11,7 @@ import { getBaseSite } from "@/api/common.js";
 export default {
   data() {
     return {
-      domainLogo: require("@/assets/logo.png"),
+      domainLogo: "../assets/logo.png",
     };
   },
   methods: {
@@ -28,7 +28,7 @@ export default {
           this.getSite();
           return;
         } else {
-          this.domainLogo = localStorage.getItem("icon");
+          //this.domainLogo = localStorage.getItem("icon");
           let link =
             document.querySelector("link[rel*='icon']") ||
             document.createElement("link");
@@ -36,7 +36,7 @@ export default {
           link.href = localStorage.getItem("icon");
           link.rel = "shortcut icon";
           document.getElementsByTagName("head")[0].appendChild(link);
-          window.document.title = localStorage.getItem("title") + " - 运营后台";
+          window.document.title = "联德时代 - 运营后台";
         }
       }
     },
@@ -44,7 +44,7 @@ export default {
       //获取domainLogo
       getBaseSite().then((res) => {
         const { domainLogo, siteName } = JSON.parse(res.result.settingValue);
-        this.domainLogo = domainLogo;
+        //this.domainLogo = domainLogo;
         // 过期时间
         var expirationTime = new Date().setHours(new Date().getHours() + 1);
         // 存放过期时间
@@ -59,7 +59,7 @@ export default {
         link.href = domainLogo;
         link.rel = "shortcut icon";
         document.getElementsByTagName("head")[0].appendChild(link);
-        window.document.title = siteName + " - 运营后台";
+        window.document.title = "联德时代" + " - 运营后台";
       });
     },
   },

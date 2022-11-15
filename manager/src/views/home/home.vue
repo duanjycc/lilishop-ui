@@ -3,16 +3,16 @@
     <!-- 统计 -->
     <div class="card">
       <h4>基本信息</h4>
-      <div class="count-list flex">
-        <div class="count-item" @click="navigateTo('managerGoods')">
+      <div class="count-list flex" style="height: 130px">
+        <!-- <div class="count-item" @click="navigateTo('managerGoods')">
           <div>
-            <Icon class="icon" size="31" type="md-photos" />
-          </div>
-          <div>
-            <div class="counts">{{ homeData.goodsNum || 0 }}</div>
-            <div>商品数量</div>
-          </div>
-        </div>
+             <Icon class="icon" size="31" type="md-photos" />
+           </div>
+           <div>
+             <div class="counts">{{ homeData.goodsNum || 0 }}</div>
+             <div>商品数量</div>
+           </div>
+        </div>-->
         <div class="count-item" @click="navigateTo('memberList')">
           <div>
             <Icon class="icon" size="31" type="md-person" />
@@ -22,13 +22,13 @@
             <div>会员数量</div>
           </div>
         </div>
-        <div class="count-item" @click="navigateTo('orderList')">
+        <div class="count-item" @click="navigateTo('memberList')">
           <div>
             <Icon class="icon" size="31" type="md-list" />
           </div>
           <div>
-            <div class="counts">{{ homeData.orderNum || 0 }}</div>
-            <div>订单数量</div>
+            <div class="counts">{{ homeData.ssdAllNum || 0 }}</div>
+            <div>SSD数量</div>
           </div>
         </div>
         <div class="count-item" @click="navigateTo('shopList')">
@@ -44,7 +44,7 @@
     </div>
 
     <!-- 今日待办 -->
-    <div class="card">
+    <!--<div class="card">
       <h4>今日待办</h4>
       <div class="todo-list flex">
         <div class="todo-item" @click="navigateTo('applyGoods')">
@@ -74,12 +74,12 @@
           <div>待审核分账</div>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- 今日，流量概括 -->
     <div class="card flow">
       <div class="flow-list flex">
-        <div class="flow-item">
+        <!--<div class="flow-item">
           <div class="flow-member">
             <div>当前在线人数</div>
             <span>
@@ -118,51 +118,52 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="today-box">
+        </div>-->
+        <div class="today-box" style="height: 180px;margin-left: 0px">
           <h4>今日概括</h4>
-          <div class="today-list flex">
-            <div class="today-item">
+          <div class="today-list flex" >
+            <!--<div class="today-item">
               <div>今日订单数</div>
               <span>{{ homeData.todayOrderNum }}</span>
             </div>
             <div class="today-item">
-              <div>今日交易额</div>
+              <div>今日交易SSD卷</div>
               <span v-if="homeData.todayOrderPrice"
-                >￥{{ homeData.todayOrderPrice | unitPrice }}</span
+                >{{ homeData.todayOrderPrice | unitPrice }}</span
               >
-              <span v-else>￥0.00</span>
-            </div>
-            <div class="today-item">
-              <div>今日新增店铺</div>
-              <span>{{ homeData.todayStoreNum || 0 }}</span>
-            </div>
+              <span v-else>0.00</span>
+            </div>-->
             <div class="today-item">
               <div>今日新增会员数</div>
               <span>{{ homeData.todayMemberNum || 0 }}</span>
             </div>
             <div class="today-item">
+              <div>今日新增店铺</div>
+              <span>{{ homeData.todayStoreNum || 0 }}</span>
+            </div>
+
+            <!--<div class="today-item">
               <div>今日上架商品数量</div>
               <span>{{ homeData.todayGoodsNum || 0 }}</span>
             </div>
             <div class="today-item">
               <div>今日新增评论</div>
               <span>{{ homeData.todayMemberEvaluation || 0 }}</span>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
     </div>
 
     <!-- chart -->
-    <div class="card transform">
+    <!--<div class="card transform">
       <div>
         <h4>最近48小时在线人数（整点为准）</h4>
         <div id="historyMemberChart"></div>
       </div>
-    </div>
+    </div>-->
     <!-- chart -->
-    <div class="charts flex">
+    <!--<div class="charts flex">
       <div class="chart-item">
         <h4>流量走势</h4>
         <div id="pvChart"></div>
@@ -171,21 +172,21 @@
         <h4>交易趋势</h4>
         <div id="orderChart"></div>
       </div>
-    </div>
+    </div>-->
 
     <!-- top10商品 -->
-    <div class="card transform">
+    <!--<div class="card transform">
       <h4>热卖商品TOP10</h4>
       <Table
         stripe
         :columns="tophotGoodsColumns"
         :data="topHotGoodsData"
       ></Table>
-    </div>
+    </div>-->
 
     <!-- top10店铺 -->
-    <div class="card transform">
-      <h4>热卖店铺TOP10</h4>
+    <div class="card transform" style="margin-top: -150px">
+      <h4>活跃商家TOP10</h4>
       <Table
         stripe
         :columns="tophotShopsColumns"
@@ -226,9 +227,12 @@ export default {
           title: "店铺名称",
           key: "storeName",
         },
-
         {
-          title: "价格",
+          title: "电话号码",
+          key: "phone",
+        },
+        {
+          title: "让利金额",
           key: "price",
           render: (h, params) => {
             return h(
@@ -238,7 +242,7 @@ export default {
           },
         },
         {
-          title: "销量",
+          title: "交易金额",
           key: "num",
           width: 100,
           sortable: true,

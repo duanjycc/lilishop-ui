@@ -24,19 +24,16 @@
           <Select v-model="searchForm.storeDisable" clearable style="width: 200px">
             <Option value="OPEN">开启中</Option>
             <Option value="CLOSED">已关闭</Option>
-            <Option value="APPLY">申请中</Option>
+            <!--<Option value="APPLY">申请中</Option>-->
             <Option value="APPLYING">审核中</Option>
             <Option value="REFUSED">审核拒绝</Option>
           </Select>
         </Form-item>
-        <Form-item label="创建时间" prop="createTime">
-          <DatePicker v-model="selectDate" type="datetimerange" format="yyyy-MM-dd HH:mm:ss" clearable @on-change="selectDateRange" placeholder="选择起始时间" style="width: 200px"></DatePicker>
-        </Form-item>
         <Button @click="handleSearch" type="primary" icon="ios-search" class="search-btn">搜索</Button>
       </Form>
-      <Row class="operation padding-row">
+      <!--<Row class="operation padding-row">
         <Button @click="add" type="primary">添加</Button>
-      </Row>
+      </Row>-->
       <Table :loading="loading" border :columns="columns" :data="data" ref="table"></Table>
       <Row type="flex" justify="end" class="mt_10">
         <Page :current="searchForm.pageNumber" :total="total" :page-size="searchForm.pageSize" @on-change="changePage" @on-page-size-change="changePageSize" :page-size-opts="[10, 20, 50]"
@@ -97,24 +94,6 @@ export default {
             );
           },
         },
-        {
-          title: "是否自营",
-          key: "selfOperated",
-          align: "left",
-          width: 120,
-          render: (h, params) => {
-            return h(
-              "Tag",
-              {
-                props: {
-                  color: params.row.selfOperated ? "volcano" : "green",
-                },
-              },
-              params.row.selfOperated  ? "自营" : "非自营"
-            );
-          },
-        },
-
         {
           title: "店铺状态",
           key: "storeDisable",
@@ -264,25 +243,7 @@ export default {
                 },
                 "查看"
               ),
-              h(
-                "Button",
-                {
-                  props: {
-                    type: "info",
-                    size: "small",
-                    ghost:true
-                  },
-                  style: {
-                    marginRight: "5px",
-                  },
-                  on: {
-                    click: () => {
-                      this.edit(params.row);
-                    },
-                  },
-                },
-                "修改"
-              ),
+
               enableOrDisable,
             ]);
           },

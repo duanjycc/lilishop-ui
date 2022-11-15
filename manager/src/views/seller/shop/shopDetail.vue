@@ -17,13 +17,13 @@
               </div>
             </div>
             <div class="bottom-info">
-              <p v-if="storeInfo.createTime">{{storeInfo.createTime}}&nbsp;开店</p>
+              <!--<p v-if="storeInfo.createTime">{{storeInfo.createTime}}&nbsp;开店</p>
               <p v-if="storeInfo.selfOperated == 1">
                 <Tag color="success">自营</Tag>
               </p>
               <p v-else>
                 <Tag color="error">非自营</Tag>
-              </p>
+              </p>-->
               <p>
                 <i-switch size="large" v-model="storeInfo.storeDisable" :true-value="true" :false-value="false"
                           @on-change="shopStatusChange">
@@ -32,7 +32,7 @@
                 </i-switch>
               </p>
             </div>
-            <div style="margin-top: 20px">
+           <!-- <div style="margin-top: 20px">
               <p class="item">
                 <span class="label">公司名称：</span>
                 <span class="info">{{storeInfo.companyName}}</span>
@@ -71,7 +71,7 @@
                   {{storeInfo.companyAddressPath || storeInfo.companyAddress?storeInfo.companyAddressPath + ' '+storeInfo.companyAddress:"暂未完善"}}
                 </span>
               </p>
-            </div>
+            </div>-->
 
           </div>
         </div>
@@ -80,10 +80,10 @@
             <span class="label">商家账号：</span>
             <span class="info">{{storeInfo.memberName}}</span>
           </p>
-          <p class="item">
+          <!--<p class="item">
             <span class="label">库存预警数：</span>
             <span class="info">{{storeInfo.stockWarning?storeInfo.stockWarning:'0'}}</span>
-          </p>
+          </p>-->
           <p class="item">
             <span class="label">店铺所在地：</span>
             <span class="info">
@@ -94,7 +94,7 @@
             <span class="label">退货地址：</span>
             <span class="info">
                {{storeInfo.salesConsigneeName !== 'null' ? storeInfo.salesConsigneeName : '' || storeInfo.salesConsigneeMobile !=='null' ?storeInfo.salesConsigneeMobile:''|| storeInfo.salesConsigneeAddressPath !=='null'?storeInfo.salesConsigneeAddressPath:'' || storeInfo.salesConsigneeDetail !=='null'?storeInfo.salesConsigneeDetail:'' ?storeInfo.salesConsigneeName + storeInfo.salesConsigneeMobile +' '+ storeInfo.salesConsigneeAddressPath + storeInfo.salesConsigneeDetail:'暂未完善'}}
-               
+
             </span>
           </p>
           <p class="item">
@@ -117,7 +117,7 @@
             </span>
           </p>
         </div>
-        <div class="ant-col-md-6">
+       <!-- <div class="ant-col-md-6">
           <p class="item">
             <span class="label">法人姓名：</span>
             <span class="info">{{storeInfo.legalName}}人</span>
@@ -133,7 +133,7 @@
             </span>
           </p>
           <p class="item">
-            
+
             <span class="label">营业执照号：</span>
             <span class="info">{{storeInfo.licenseNum}}</span>
           </p>
@@ -176,14 +176,14 @@
                 >{{ item }}
                 </Tag>
               </template>
-               
+
             </span>
           </p>
-        </div>
+        </div>-->
       </div>
     </Card>
 
-    <Card class="mt_10">
+    <!--<Card class="mt_10">
       <Tabs value="order" @on-click="storeInfoChange">
         <TabPane label="TA的订单" name="order" style="min-height: 200px">
           <Row>
@@ -255,7 +255,7 @@
               ref="table"
               class="mt_10"
             >
-              <!-- 订单详情格式化 -->
+
               <template slot="orderSlot" slot-scope="scope">
                 <a @click="$router.push({name: 'order-detail',query: {sn: scope.row.sn}})">{{scope.row.sn}}</a>
               </template>
@@ -356,7 +356,7 @@
               ref="table"
               class="mt_10"
             >
-              <!-- 商品栏目格式化 -->
+
               <template slot="goodsSlot" slot-scope="scope">
                 <div style="margin-top: 5px;height: 80px; display: flex;">
                   <div style="">
@@ -372,13 +372,13 @@
 
               </template>
 
-              <!-- 订单详情格式化 -->
+
               <template slot="orderSlot" slot-scope="scope">
                 <a
                   @click="$router.push({name: 'order-detail',query: {sn: scope.row.orderSn}})">{{scope.row.orderSn}}</a>
               </template>
 
-              <!-- 售后单详情格式化 -->
+
               <template slot="refundGoodsOrderSlot" slot-scope="scope">
                 <a @click="$router.push({name: 'after-order-detail',query: {sn: scope.row.sn}})">{{scope.row.sn}}</a>
               </template>
@@ -479,7 +479,7 @@
               ref="table"
               class="mt_10"
             >
-              <!-- 商品栏目格式化 -->
+
               <template slot="goodsSlot" slot-scope="scope">
                 <div style="margin-top: 5px;height: 80px; display: flex;">
                   <div style="">
@@ -495,13 +495,13 @@
 
               </template>
 
-              <!-- 订单详情格式化 -->
+
               <template slot="orderSlot" slot-scope="scope">
                 <a
                   @click="$router.push({name: 'order-detail',query: {sn: scope.row.orderSn}})">{{scope.row.orderSn}}</a>
               </template>
 
-              <!-- 售后单详情格式化 -->
+
               <template slot="refundGoodsOrderSlot" slot-scope="scope">
                 <a @click="$router.push({name: 'after-order-detail',query: {sn: scope.row.sn}})">{{scope.row.sn}}</a>
               </template>
@@ -524,7 +524,7 @@
           </div>
         </TabPane>
       </Tabs>
-    </Card>
+    </Card>-->
 
   </div>
 </template>
