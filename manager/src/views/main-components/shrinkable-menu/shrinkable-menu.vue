@@ -92,8 +92,9 @@ export default {
 }
 /deep/.ivu-menu-vertical .ivu-menu-item-group-title {
   height: 40px;
-  color: #0f1011;
-  font-size: large;
+  color: white;
+  background-color: grey;
+  font-size: small;
   line-height: 40px;
   padding-left: 10px;
   font-weight: bolder;
