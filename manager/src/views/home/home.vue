@@ -22,15 +22,6 @@
             <div>会员数量</div>
           </div>
         </div>
-        <div class="count-item" @click="navigateTo('memberList')">
-          <div>
-            <Icon class="icon" size="31" type="md-list" />
-          </div>
-          <div>
-            <div class="counts">{{ homeData.ssdAllNum || 0 }}</div>
-            <div>SSD数量</div>
-          </div>
-        </div>
         <div class="count-item" @click="navigateTo('shopList')">
           <div>
             <Icon class="icon" size="31" type="ios-stats" />
@@ -38,6 +29,15 @@
           <div>
             <div class="counts">{{ homeData.storeNum || 0 }}</div>
             <div>店铺数量</div>
+          </div>
+        </div>
+        <div class="count-item" @click="navigateTo('memberList')">
+          <div>
+            <Icon class="icon" size="31" type="md-list" />
+          </div>
+          <div>
+            <div class="counts">{{ homeData.ssdAllNum || 0 }}</div>
+            <div>SSD总量</div>
           </div>
         </div>
       </div>
