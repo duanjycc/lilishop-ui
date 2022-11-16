@@ -345,17 +345,18 @@ export default {
     },
     handleSelectSiginDep(v){
       if(!this.orSigin){
-         checkAreaHavSign(v).then((res) =>{
-            if (res.success) {
-              let status = res.result;
-              if(status){
-                this.signForm.signAreaId = v;
-              }else{
-                this.$Message.error("所选区域已被签约，请选择其他区域","2000");
-              }
+        checkAreaHavSign(v).then((res) =>{
+          if (res.success) {
+            let signData = res.result;
+            if(signData != null && signData != ''){
+              this.signForm.signAreaId = v;
+              this.signForm.signAreaIds = signData.signAreaIds;
+            }else{
+              this.$Message.error("所选区域已被签约，请选择其他区域","2000");
             }
-         })
-       }else{
+          }
+        })
+      }else{
         this.signForm.signAreaId = v;
       }
     },

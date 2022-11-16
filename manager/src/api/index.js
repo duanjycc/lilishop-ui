@@ -166,7 +166,11 @@ export const getSignDetail= (areaId) => {
 };
 // 检测区域是否被签约
 export const checkAreaHavSign= (areaId) => {
-  return getRequest(`/service/provider/check/${areaId}`);
+  return getRequest(`/service/provider/checks/${areaId}`);
+};
+// 检测上级代理区域是否被签约
+export const checkPrentAreaHavSign= (areaId) => {
+  return getRequest(`/service/provider/checkp/${areaId}`);
 };
 
 // 删除

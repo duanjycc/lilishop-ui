@@ -1,7 +1,6 @@
 <template>
   <div>
     <Cascader
-      v-model="selectDep"
       :data="regionList"
       @on-change="handleChangeDep"
       change-on-select
@@ -22,7 +21,7 @@ export default {
 
   data() {
     return {
-  
+
     };
   },
   methods: {
