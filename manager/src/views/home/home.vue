@@ -31,7 +31,7 @@
             <div>店铺数量</div>
           </div>
         </div>
-        <div class="count-item" @click="navigateTo('memberList')">
+        <div class="count-item" @click="navigateTo('memberList')"  v-if="homeData.isSuper">
           <div>
             <Icon class="icon" size="31" type="md-list" />
           </div>
