@@ -186,7 +186,7 @@
 
     <!-- top10店铺 -->
     <div class="card transform" style="margin-top: -150px">
-      <h4>活跃商家TOP10</h4>
+      <h4>当日做单商家</h4>
       <Table
         stripe
         :columns="tophotShopsColumns"

@@ -24,7 +24,7 @@
       <Table :loading="loading" border :columns="columns" class="mt_10" :data="data" ref="table"></Table>
       <Row type="flex" justify="end" class="mt_10">
         <Page :current="searchForm.pageNumber" :total="total" :page-size="searchForm.pageSize" @on-change="changePage"
-          @on-page-size-change="changePageSize" :page-size-opts="[10, 20, 50]" size="small" show-total show-elevator
+          @on-page-size-change="changePageSize" :page-size-opts="[50, 20, 10]" size="small" show-total show-elevator
           show-sizer></Page>
       </Row>
     </Card>
@@ -131,7 +131,7 @@ export default {
       searchForm: {
         // 请求参数
         pageNumber: 1,
-        pageSize: 10,
+        pageSize: 50,
         order: "desc",
         username: "",
         mobile: "",
@@ -381,11 +381,12 @@ export default {
     // 搜索
     handleSearch() {
       this.searchForm.pageNumber = 1;
-      this.searchForm.pageSize = 10;
+      this.searchForm.pageSize = 50;
       this.getData();
     },
     //查看详情修改
     editPerm(val) {
+      localStorage.setItem("lastpage", this.searchForm.pageNumber)
       this.descTitle = `查看用户 ${val.username}`;
       this.descFlag = true;
       this.updateRegion = false;
@@ -399,6 +400,7 @@ export default {
      * 查询查看会员详情
      */
     getMemberInfo(id) {
+      localStorage.setItem("lastpage", this.searchForm.pageNumber)
       API_Member.getMemberInfoData(id).then((res) => {
         if (res.result) {
           this.$set(this, "form", res.result);
@@ -445,6 +447,7 @@ export default {
     },
     //查看会员
     detail(row) {
+      localStorage.setItem("lastpage", this.searchForm.pageNumber)
       this.$router.push({ name: "member-detail", query: { id: row.id } });
     },
 
@@ -502,6 +505,7 @@ export default {
     },
   },
   mounted() {
+    this.searchForm.pageNumber = localStorage.getItem("lastpage") || 1
     this.getData();
   },
 };
