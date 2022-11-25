@@ -9,6 +9,9 @@ export const getChildRegion = (id) => {
 export const getRegionAll = () => {
   return getRequest(`${commonUrl}/common/common/region/allCity`);
 };
+export const getRegionAll2 = () => {
+  return getRequest(`${commonUrl}/common/common/region/allCity2`);
+};
 
 // 点地图获取地址信息
 export const getRegion = (params) => {
