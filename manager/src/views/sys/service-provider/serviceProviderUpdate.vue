@@ -55,7 +55,7 @@
     getAllRoleList
   } from "@/api/index";
   import * as API_Member from "@/api/member.js";
-  import { getRegionAll } from "@/api/common";
+  import { getRegionAll2 } from "@/api/common";
   import regionChoose from "@/views/lili-components/region-choose";
   import regionTreeChooseVue from "../../my-components/lili/region-tree-choose.vue";
   export default {
@@ -112,7 +112,7 @@
 
       },
       initRegionData() {
-        getRegionAll().then(res => {
+        getRegionAll2().then(res => {
           if (res.success) {
             const arr = res.result;
             this.regionList = arr
