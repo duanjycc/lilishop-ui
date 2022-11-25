@@ -55,9 +55,9 @@ export default {
     }
   },
   watch: {
-     regionList(val) {
-       this.initRegionData();
-     }
+     // regionList(val) {
+     //   this.initRegionData();
+     // }
   }
 };
 </script>
