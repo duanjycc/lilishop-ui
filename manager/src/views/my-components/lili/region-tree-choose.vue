@@ -50,9 +50,9 @@ export default {
     }
   },
   watch: {
-    regionList(val) {
-      this.initRegionData();
-    },
+    // regionList(val) {
+    //   this.initRegionData();
+    // },
     selectDep(v){
       this.reselectDep = v;
     }
