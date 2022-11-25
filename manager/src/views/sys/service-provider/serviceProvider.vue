@@ -101,7 +101,7 @@ import {
   checkAreaHavSign,
   delSignIn,
 } from "@/api/index";
-import { getRegionAll } from "@/api/common";
+import { getRegionAll2 } from "@/api/common";
 import regionTreeChooseVue from "@/views/my-components/lili/region-tree-choose.vue";
 import regionSelChooseVue from "@/views/my-components/lili/region-sel-choose.vue";
 
@@ -402,7 +402,7 @@ export default {
       });
     },
     initRegionData() {
-      getRegionAll().then(res => {
+      getRegionAll2().then(res => {
         if (res.success) {
           const arr = res.result;
           this.regionList = arr
