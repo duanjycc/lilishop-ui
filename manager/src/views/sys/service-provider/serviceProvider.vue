@@ -3,13 +3,7 @@
     <Card>
       <Form ref="searchForm" :model="searchForm" inline :label-width="70" class="search-form">
         <Form-item label="地区">
-          <regionSelChooseVue @on-change="handleSelectSearchDep" :regionList="regionList"  style="width: 300px;" ref="dep"></regionSelChooseVue>
-        </Form-item>
-        <Form-item label="是否签约">
-          <Select v-model="searchForm.isSignIn" placeholder="请选择" clearable style="width: 200px">
-            <Option value="0">签约</Option>
-            <Option value="1">未签约</Option>
-          </Select>
+          <regionSelChooseVue @on-change="handleSelectSearchDep" :regionCityList="regionCityList"  style="width: 300px;" ref="dep"></regionSelChooseVue>
         </Form-item>
         <Form-item label="区域名称">
           <Input
@@ -20,7 +14,12 @@
             style="width: 200px"
           />
         </Form-item>
-
+        <Form-item label="是否签约">
+          <Select v-model="searchForm.isSignIn" placeholder="请选择" clearable style="width: 200px">
+            <Option value="0">签约</Option>
+            <Option value="1">未签约</Option>
+          </Select>
+        </Form-item>
         <Button @click="handleSearch" type="primary" icon="ios-search" class="search-btn">搜索</Button>
       </Form>
 
@@ -94,6 +93,7 @@
 import {
   getServiceProvider,
   getUserListData,
+  getRegionCity,
   getAllRoleList,
   addSignIn,
   editSignIn,
@@ -113,6 +113,7 @@ export default {
       loading: true, // 加载状态
       selectList: [], // 已选数据列表
       regionList: [],// 地区列表
+      regionCityList: [], //省市列表
       roleList: [], // 角色列表
       orSigin: false,
       searchForm: { // 请求参数
@@ -321,6 +322,7 @@ export default {
   methods: {
     // 初始化数据
     init() {
+      this.initRegionCityData();
       this.getServiceProvider();
       this.initRegionData();
     },
@@ -401,7 +403,15 @@ export default {
         }
       });
     },
-    initRegionData() {
+    initRegionCityData() {
+      getRegionCity().then(res => {
+        if (res.success) {
+          const arr = res.result;
+          this.regionCityList = arr
+        }
+      });
+    },
+    async initRegionData() {
       getRegionAll2().then(res => {
         if (res.success) {
           const arr = res.result;
@@ -455,6 +465,10 @@ export default {
     },
     // 签约
     signIn(v,t) {
+
+      if (this.regionList == null || this.regionList == '') {
+        this.initRegionData();
+      }
       this.orSigin = t;
       this.$refs.signForm.resetFields();
       if(t){

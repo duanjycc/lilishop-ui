@@ -172,7 +172,10 @@ export const checkAreaHavSign= (areaId) => {
 export const checkPrentAreaHavSign= (areaId) => {
   return getRequest(`/service/provider/checkp/${areaId}`);
 };
-
+// 获得省市
+export const getRegionCity= (areaId) => {
+  return getRequest(`/service/provider/regionCity`);
+};
 // 删除
 export const delSignIn = (id) => {
   return deleteRequest(`/service/provider/delete/${id}`);

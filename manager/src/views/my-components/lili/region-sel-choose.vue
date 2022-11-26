@@ -1,7 +1,7 @@
 <template>
   <div>
     <Cascader
-      :data="regionList"
+      :data="regionCityList"
       @on-change="handleChangeDep"
       change-on-select
       filterable
@@ -16,7 +16,7 @@
 export default {
   name: "regionTreeChoose",
   props: {
-     regionList: Array
+    regionCityList: Array
   },
 
   data() {
@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     // 获取部门数据
-    initRegionData() {
-      this.filterData(this.regionList)
+    initRegionCityData() {
+      this.filterData(this.regionCityList)
     },
     handleChangeDep(value, selectedData) {
       let regionId = "";
@@ -55,9 +55,9 @@ export default {
     }
   },
   watch: {
-     // regionList(val) {
-     //   this.initRegionData();
-     // }
+    regionCityList(val) {
+        this.initRegionCityData();
+    }
   }
 };
 </script>
