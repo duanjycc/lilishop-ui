@@ -3,7 +3,7 @@
     <Card>
       <Form ref="searchForm" :model="searchForm" inline :label-width="70" class="search-form">
         <Form-item label="地区">
-          <regionSelChooseVue @on-change="handleSelectSearchDep" :regionCityList="regionCityList"  style="width: 300px;" ref="dep"></regionSelChooseVue>
+          <regionSelChooseVue @on-change="handleSelectSearchDep" :regionCityList="regionCityList" :selectDep="signForm.signcityAreaIds" style="width: 300px;" ref="dep"></regionSelChooseVue>
         </Form-item>
         <Form-item label="区域名称">
           <Input
@@ -92,6 +92,7 @@
 <script>
 import {
   getServiceProvider,
+  getSignCityDetail,
   getUserListData,
   getRegionCity,
   getAllRoleList,
@@ -129,6 +130,7 @@ export default {
       userModalVisible: false, // 用户modal显隐
       modalTitle: "", // modal标题
       signForm: { // 请求参数
+        signcityAreaIds:"",
         signAreaId:"",
         signAreaName:"",
         signAreaIds:[],
@@ -323,6 +325,7 @@ export default {
     // 初始化数据
     init() {
       this.initRegionCityData();
+      this.initRestCondition();
       this.getServiceProvider();
       this.initRegionData();
     },
@@ -387,6 +390,7 @@ export default {
     },
     // 搜索
     handleSearch() {
+      localStorage.setItem("saveAreaId", '')
       this.searchForm.pageNumber = 1;
       this.searchForm.pageSize = 20;
       this.getServiceProvider();
@@ -419,6 +423,20 @@ export default {
         }
       });
     },
+    initRestCondition() {
+      let areaId = localStorage.getItem("saveAreaId") || ''
+
+      if (areaId != 'null' && areaId!='') {
+        this.searchForm.areaId = areaId
+        getSignCityDetail(areaId).then((res) => {
+          this.loading = false;
+          if (res.success) {
+            let signData = res.result;
+            this.signForm.signcityAreaIds = signData.signAreaIds;
+          }
+        });
+      }
+    },
     // 确认提交
     submitUser() {
       this.$refs.signForm.validate(valid => {
@@ -450,6 +468,7 @@ export default {
     },
     //查看服务商业绩
     detail(row) {
+      localStorage.setItem("saveAreaId", this.searchForm.areaId)
       this.$router.push({ name: "service-provider-achievement", query: { mobile: row.areaServiceProviderMobile,signAreaId: row.areaId } });
     },
 

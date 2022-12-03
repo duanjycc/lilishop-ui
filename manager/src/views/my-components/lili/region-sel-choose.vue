@@ -1,6 +1,7 @@
 <template>
   <div>
     <Cascader
+      v-model="restselectDep"
       :data="regionCityList"
       @on-change="handleChangeDep"
       change-on-select
@@ -16,12 +17,12 @@
 export default {
   name: "regionTreeChoose",
   props: {
-    regionCityList: Array
+    regionCityList: Array,selectDep:''
   },
 
   data() {
     return {
-
+      restselectDep:this.selectDep
     };
   },
   methods: {
@@ -57,6 +58,9 @@ export default {
   watch: {
     regionCityList(val) {
         this.initRegionCityData();
+    },
+    selectDep(v){
+      this.restselectDep = v;
     }
   }
 };

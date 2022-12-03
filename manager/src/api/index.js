@@ -40,7 +40,10 @@ export const hotGoods = (params) => {
 export const hotShops = (params) => {
   return getRequest("/statistics/index/storeStatistics", params);
 };
-
+// 获取首页各省份SSD统计
+export const hotAreasSsd = (params) => {
+  return getRequest("/statistics/index/areasSsdStatistics", params);
+};
 
 // 通知提示信息
 export const getNoticePage = (params) => {
@@ -163,6 +166,10 @@ export const editSignIn = (params) => {
 // 获取服务商签约信息
 export const getSignDetail= (areaId) => {
   return getRequest(`/service/provider/region/${areaId}`);
+};
+// 获取服务商签约信息
+export const getSignCityDetail= (areaId) => {
+  return getRequest(`/service/provider/regionCity/${areaId}`);
 };
 // 检测区域是否被签约
 export const checkAreaHavSign= (areaId) => {

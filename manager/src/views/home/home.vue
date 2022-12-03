@@ -174,18 +174,18 @@
       </div>
     </div>-->
 
-    <!-- top10商品 -->
-    <!--<div class="card transform">
-      <h4>热卖商品TOP10</h4>
+    <!-- 各省份商家SSD总量 -->
+    <div class="card transform" style="margin-top: -120px">
+      <h4>各省份(商家)SSD总量</h4>
       <Table
         stripe
-        :columns="tophotGoodsColumns"
-        :data="topHotGoodsData"
+        :columns="tophotAreasColumns"
+        :data="topHotAreasData"
       ></Table>
-    </div>-->
+    </div>
 
     <!-- top10店铺 -->
-    <div class="card transform" style="margin-top: -150px">
+    <div class="card transform" >
       <h4>当日做单商家</h4>
       <Table
         stripe
@@ -197,7 +197,7 @@
 </template>
 
 <script>
-import { homeStatistics, hotGoods, hotShops, getNoticePage } from "@/api/index";
+import { homeStatistics, hotGoods,hotAreasSsd, hotShops, getNoticePage } from "@/api/index";
 import * as API_Goods from "@/api/goods";
 import { Chart } from "@antv/g2";
 import * as API_Member from "@/api/member";
@@ -214,6 +214,36 @@ export default {
         a: "test",
         languages: [],
       },
+
+      // 各省份SSD
+      tophotAreasColumns: [
+        // 表格表头
+        {
+          type: "index",
+          width: 100,
+          title: "排名",
+          align: "center",
+        },
+        {
+          title: "省份",
+          key: "areaName",
+        },
+        {
+          title: "让利金额",
+          key: "areaPrice",
+        },
+        {
+          title: "SSD数量",
+          key: "areaSsd",
+        },
+        {
+          title: "积分数量",
+          key: "areaPoint",
+          width: 100,
+          sortable: true,
+        },
+      ],
+
       // 测试数据结束
       tophotShopsColumns: [
         // 表格表头
@@ -279,6 +309,7 @@ export default {
         },
       ],
       topHotGoodsData: [], //热卖商品集合
+      topHotAreasData: [], //各省份SSD
       topHotShopsData: [], //热卖店铺集合
       awaitTodoData: "", //今日待办集合
       homeData: "", // 首页数据
@@ -309,6 +340,11 @@ export default {
     async toHotGoods() {
       let res = await hotGoods(this.params);
       res.success ? (this.topHotGoodsData = res.result) : "";
+    },
+    // 各省份SSD
+    async hotAreasSsd() {
+      let res = await hotAreasSsd(this.params);
+      res.success ? (this.topHotAreasData = res.result) : "";
     },
 
     // top10热卖店铺
@@ -538,6 +574,7 @@ export default {
     init() {
       this.toHotGoods();
       this.topHotShops();
+      this.hotAreasSsd();
       this.awaitTodo();
       this.getHomeData();
       this.getPvChart();
