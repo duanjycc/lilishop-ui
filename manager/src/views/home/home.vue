@@ -232,16 +232,6 @@ export default {
           title: "让利金额",
           key: "areaPrice",
         },
-        {
-          title: "SSD数量",
-          key: "areaSsd",
-        },
-        {
-          title: "积分数量",
-          key: "areaPoint",
-          width: 100,
-          sortable: true,
-        },
       ],
 
       // 测试数据结束
