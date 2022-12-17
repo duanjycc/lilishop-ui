@@ -110,13 +110,6 @@ export default {
           check: false,
         },
         {
-          title: "虚拟商品",
-          img: require("@/assets/goodsType2.png"),
-          desc: "虚拟核验，无需物流",
-          type: "VIRTUAL_GOODS",
-          check: false,
-        },
-        {
           title: "商品模板导入",
           img: require("@/assets/goodsTypeTpl.png"),
           desc: "商品模板，一键导入",
@@ -254,5 +247,8 @@ export default {
 @import "./addGoods.scss";
 /deep/ .ivu-scroll-container{
   height:450px !important;
+}
+.active-goods-type{
+
 }
 </style>

@@ -29,7 +29,7 @@
               <Option value="UPPER">上架</Option>
             </Select>
           </Form-item>
-          <Form-item label="销售模式" prop="status">
+          <!--<Form-item label="销售模式" prop="status">
             <Select
               v-model="searchForm.salesModel"
               placeholder="请选择"
@@ -59,7 +59,7 @@
               clearable
               style="width: 200px"
             />
-          </Form-item>
+          </Form-item>-->
           <Button @click="handleSearch" type="primary" class="search-btn">搜索</Button>
           <Button @click="handleReset" class="search-btn">重置</Button>
         </Form>

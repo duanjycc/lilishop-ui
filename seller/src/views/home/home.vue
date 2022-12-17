@@ -20,9 +20,9 @@
             <div class="box-item">
               <div>店铺状态：{{userData.storeDisable=='OPEN' ? '开启中' : '关闭'}}</div>
             </div>
-            <div class="box-item" @click="im()">
+           <!-- <div class="box-item" @click="im()">
               <Button type="info">点击登录客服</Button>
-            </div>
+            </div>-->
           </div>
 
           <div class="rate-box">
@@ -123,10 +123,10 @@
             </div>
 
             <div class="detail-item">
-              <div @click="navigateTo('seckill')">
+              <!--<div @click="navigateTo('seckill')">
                 <span>{{homeData.seckillNum || 0}}</span>
                 <div>秒杀活动</div>
-              </div>
+              </div>-->
               <div @click="navigateTo('accountStatementBill')">
                 <span>{{homeData.waitPayBill || 0}}</span>
                 <div>等待对账</div>
@@ -140,14 +140,14 @@
         </div>
       </div>
       <!-- 公告 -->
-      <div class="card box-right">
+      <!--<div class="card box-right">
         <h4>平台公告</h4>
         <div>
           <div class="notice-title" v-for="(item,index) in notices" :key="index">
             <a @click="clickLinkNotices(item)">{{item.title}}</a>
           </div>
         </div>
-      </div>
+      </div>-->
     </div>
 
     <div class="card ">

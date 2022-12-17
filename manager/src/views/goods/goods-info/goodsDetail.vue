@@ -109,9 +109,9 @@
           </div>
           <h4>商品详情描述</h4>
           <div class="form-item-view">
-            <FormItem label="商品描述">
+            <!--<FormItem label="商品描述">
               <div v-html="goods.intro"></div>
-            </FormItem>
+            </FormItem>-->
             <FormItem label="移动端描述">
               <div v-html="goods.mobileIntro"></div>
             </FormItem>

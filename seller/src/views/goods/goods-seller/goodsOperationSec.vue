@@ -44,7 +44,7 @@
                 style="width: 260px"
               />
             </FormItem>
-            <FormItem label="商品品牌" prop="brandId">
+            <!--<FormItem label="商品品牌" prop="brandId">
               <Select
                 v-model="baseInfoForm.brandId"
                 filterable
@@ -57,7 +57,7 @@
                   :label="item.name"
                 ></Option>
               </Select>
-            </FormItem>
+            </FormItem>-->
           </div>
           <h4>商品交易信息</h4>
           <div class="form-item-view">
@@ -90,7 +90,7 @@
                 v-model="baseInfoForm.salesModel"
               >
                 <Radio title="零售型" label="RETAIL">零售型</Radio>
-                <Radio title="批发型" label="WHOLESALE">批发型</Radio>
+               <!-- <Radio title="批发型" label="WHOLESALE">批发型</Radio>-->
               </RadioGroup>
               <RadioGroup
                 type="button"
@@ -516,7 +516,7 @@
             <div class="tree-bar">
               <FormItem
                 class="form-item-view-el"
-                label="店内分类"
+                label="店铺分类"
                 prop="shopCategory"
               >
                 <Tree
@@ -530,7 +530,7 @@
                 ></Tree>
               </FormItem>
             </div>
-            <FormItem
+            <!--<FormItem
               style="width: 100%"
               class="form-item-view-el"
               label="商品描述"
@@ -542,7 +542,7 @@
                 v-model="baseInfoForm.intro"
                 :init="{ ...initEditor, height: '800px' }"
               ></editor>
-            </FormItem>
+            </FormItem>-->
             <FormItem
               style="width: 100%"
               class="form-item-view-el"

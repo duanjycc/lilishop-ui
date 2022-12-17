@@ -150,7 +150,7 @@
             </Form-item>
           </Form>
         </TabPane>
-        <TabPane label="客服设置" name="UDESK">
+        <!--<TabPane label="客服设置" name="UDESK">
           <Form
             ref="udeskForm"
             :model="udeskForm"
@@ -175,7 +175,7 @@
               </Button>
             </Form-item>
           </Form>
-        </TabPane>
+        </TabPane>-->
       </Tabs>
     </Card>
 
