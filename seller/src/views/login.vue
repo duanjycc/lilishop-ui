@@ -1,8 +1,8 @@
 <template>
   <div class="login" @click="$refs.verify.show = false">
     <Row type="flex" @keydown.enter.native="submitLogin">
-      <Col style="width: 368px">
-      <Header />
+      <Col style="width: 398px">
+      <span style="color: cornflowerblue;font-size: xxx-large">商家后台管理系统</span>
       <Row style="flex-direction: column;">
         <Form ref="usernameLoginForm" :model="form" :rules="rules" class="form">
           <FormItem prop="username">
