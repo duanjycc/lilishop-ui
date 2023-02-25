@@ -119,9 +119,17 @@
             </div>
           </div>
         </div>-->
-        <div class="today-box" style="height: 180px;margin-left: 0px">
+        <div class="today-box" style="margin-bottom: 20px;margin-left: 0px">
           <h4>今日概括</h4>
           <div class="today-list flex" >
+            <div class="today-item">
+              <div>SSD销毁总量</div>
+              <span>{{ todayCount || 0 }}</span>
+            </div>
+            <div class="today-item">
+              <div>今日销毁量</div>
+              <span>{{ yesterdayCount || 0 }}</span>
+            </div>
             <!--<div class="today-item">
               <div>今日订单数</div>
               <span>{{ homeData.todayOrderNum }}</span>
@@ -142,14 +150,6 @@
               <span>{{ homeData.todayStoreNum || 0 }}</span>
             </div>
 
-            <!--<div class="today-item">
-              <div>今日上架商品数量</div>
-              <span>{{ homeData.todayGoodsNum || 0 }}</span>
-            </div>
-            <div class="today-item">
-              <div>今日新增评论</div>
-              <span>{{ homeData.todayMemberEvaluation || 0 }}</span>
-            </div>-->
           </div>
         </div>
       </div>
@@ -175,7 +175,7 @@
     </div>-->
 
     <!-- 各省份商家SSD总量 -->
-    <div class="card transform" style="margin-top: -120px">
+    <div class="card transform" style="margin-top: -80px">
       <h4>各省份(商家)SSD总量</h4>
       <Table
         stripe
@@ -201,6 +201,14 @@ import { homeStatistics, hotGoods,hotAreasSsd, hotShops, getNoticePage } from "@
 import * as API_Goods from "@/api/goods";
 import { Chart } from "@antv/g2";
 import * as API_Member from "@/api/member";
+let getFloat = function(number, n) {
+  n = n ? parseInt(n) : 0;
+  if(n <= 0) {
+    return Math.round(number);
+  }
+  number = Math.round(number * Math.pow(10, n)) / Math.pow(10, n); //四舍五入
+  return number;
+};
 // import i18nBox from '@/views/lili-components/i18n-translate'
 export default {
   name: "home",
@@ -303,6 +311,8 @@ export default {
       topHotShopsData: [], //热卖店铺集合
       awaitTodoData: "", //今日待办集合
       homeData: "", // 首页数据
+      todayCount: 0,
+      yesterdayCount: 0,
       pvChart: "", // 流量统计
       orderChart: "", // 订单统计
       historyMemberChart: "", // 最近会员流量统计
@@ -360,7 +370,8 @@ export default {
         } else {
           res.result.todayOrderPrice = 0;
         }
-
+        this.todayCount = getFloat(res.result.homeSsdCountVO.sum, 4);
+        this.yesterdayCount = getFloat(res.result.homeSsdCountVO.yesterdayCount, 4);
         this.homeData = res.result;
       }
     },

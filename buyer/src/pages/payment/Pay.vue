@@ -227,10 +227,10 @@
           <span>优惠金额：</span
           ><span>-{{ priceDetailDTO.discountPrice | unitPrice("￥") }}</span>
         </div>
-        <div v-if="priceDetailDTO.couponPrice > 0">
+        <!--<div v-if="priceDetailDTO.couponPrice > 0">
           <span>优惠券金额：</span
           ><span>-{{ priceDetailDTO.couponPrice | unitPrice("￥") }}</span>
-        </div>
+        </div>-->
 
         <div v-if="$route.query.way === 'POINTS'">
           <span>应付积分：</span

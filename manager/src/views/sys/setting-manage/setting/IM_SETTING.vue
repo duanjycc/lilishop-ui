@@ -1,8 +1,8 @@
 <template>
   <div class="layout">
     <Form ref="formValidate" :label-width="150" label-position="right" :model="formValidate" :rules="ruleValidate">
-      <FormItem label="云IM地址" prop="httpUrl">
-        <Input v-model="formValidate.httpUrl"/>
+      <FormItem label="SSD价格" prop="httpUrl">
+        <Input type="number" v-model="formValidate.httpUrl"/>
       </FormItem>
       <div class="label-btns">
         <Button type="primary" @click="submit('formValidate')">保存</Button>

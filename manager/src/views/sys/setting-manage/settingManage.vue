@@ -60,7 +60,7 @@ export default {
         //阿里短信配置
         {
           type: "IM_SETTING",
-          name: "客服设置",
+          name: "SSD价格设置",
         },
       ],
       authLogin: [

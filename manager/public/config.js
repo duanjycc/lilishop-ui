@@ -5,7 +5,7 @@ var BASE = {
     API_DEV: {
      common: "http://8.136.107.94:8890",
      buyer: "http://8.136.107.94:8888",
-     seller: "http://8.136.107.94:8889",
+     seller: "http://127.0.0.1:8889",
      manager: "http://127.0.0.1:8887",
     },
     API_PROD: {

@@ -524,7 +524,7 @@
           </Row>
         </div>
       </div>
-      
+
       <div slot="footer" style="text-align: right">
         <Button @click="printModal = false">关闭</Button>
         <Button type="primary" v-print="printInfoObj">打印发货单</Button>
