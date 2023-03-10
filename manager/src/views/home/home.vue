@@ -256,6 +256,10 @@ export default {
           key: "storeName",
         },
         {
+          title: "区域",
+          key: "areaName",
+        },
+        {
           title: "电话号码",
           key: "phone",
         },

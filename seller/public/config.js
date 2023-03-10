@@ -21,7 +21,7 @@ var BASE = {
   /**
    * @description  // 跳转买家端地址 wap端
    */
-  WAP_URL: "https://m-b2b2c.pickmall.cn",
+  WAP_URL: "http://wangzix.com/",
   /**
    *  @description api请求基础路径前缀
    */

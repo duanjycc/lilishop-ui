@@ -96,7 +96,7 @@
             </div>
 
             <div style="margin-left: 13px">
-              <div class="div-zoom">
+              <div class="div-zoom">{{ row.goodsName }}
                 <a @click="linkTo(row.id, row.skuId)">{{ row.goodsName }}</a>
               </div>
               <Poptip trigger="hover" title="扫码在手机中查看" transfer>
