@@ -90,7 +90,7 @@
                 v-model="baseInfoForm.salesModel"
               >
                 <Radio title="零售型" label="RETAIL">零售型</Radio>
-               <!-- <Radio title="批发型" label="WHOLESALE">批发型</Radio>-->
+               <Radio title="礼包型" label="LBSALE">礼包型</Radio>
               </RadioGroup>
               <RadioGroup
                 type="button"

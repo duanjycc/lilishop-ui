@@ -286,8 +286,8 @@ export default {
           render: (h, params) => {
             if (params.row.salesModel === "RETAIL") {
               return h("Tag", { props: { color: "orange" } }, "零售");
-            } else if (params.row.salesModel === "WHOLESALE") {
-              return h("Tag", { props: { color: "magenta" } }, "批发");
+            } else if (params.row.salesModel === "LBSALE") {
+              return h("Tag", { props: { color: "magenta" } }, "礼包");
             } else {
               return h("Tag", { props: { color: "volcano" } }, "其他类型");
             }
